@@ -1,30 +1,31 @@
 // import { Home } from "lucide-react";
+import { URLS } from "./routes";
 
 export const sidebarLinks = [
   {
     label: "Home",
-    route: "/",
-    imgUrl: "/icons/home.svg"
+    route: URLS.HOME,
+    imgUrl: "/icons/home.svg",
     // imgUrl: Home,
   },
   {
     label: "Upcoming Meetings",
-    route: "/upcoming",
+    route: URLS.UPCOMING_MEETINGS,
     imgUrl: "/icons/upcoming.svg",
   },
   {
     label: "Previous Meetings",
-    route: "/previous-meetings",
+    route: URLS.PREVIOUS_MEETINGS,
     imgUrl: "/icons/previous.svg",
   },
   {
     label: "Recordings",
-    route: "/recordings",
+    route: URLS.RECORDINGS,
     imgUrl: "/icons/video.svg",
   },
   {
     label: "Personal Room",
-    route: "/personal-room",
+    route: URLS.PERSONAL_ROOM,
     imgUrl: "/icons/add-personal.svg",
   },
 ];
