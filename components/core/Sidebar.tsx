@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
 import { cn } from "@/lib/utils";
 import { sidebarLinks } from "@/utils";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const pathname = usePathname();
-  // const
+
   return (
-    <section className="sticky left-0 flex h-screen w-fit flex-col justify-between bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[264px] ">
+    <section className="sticky left-0 flex h-screen w-fit flex-col justify-between bg-dark-1 p-6 pt-28 text-white max-sm:hidden lg:w-[280px] ">
       <div className="flex flex-1 flex-col gap-6">
         {sidebarLinks.map((link) => {
           const isActive =
-            pathname === link.route || pathname.startsWith(link.route);
-          console.log(pathname);
+            pathname === link.route || pathname.startsWith(`${link.route}/`);
 
           return (
             <Link
@@ -27,7 +27,15 @@ const Sidebar = () => {
                 }
               )}
             >
-              {link.label}
+              <Image
+                src={link.imgUrl}
+                alt={link.label}
+                width={24}
+                height={24}
+              />
+              <p className="text-[15px] font-semibold max-lg:hidden">
+                {link.label}
+              </p>
             </Link>
           );
         })}

@@ -1,20 +1,17 @@
-import React from "react";
 import { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
-  title: "Voom - Home",
+  title: "Voom - Previous Meetings",
   description: "",
 };
 
-const HomePage = () => {
+const PreviousPage = () => {
   return (
     <section className="flex size-full flex-col gap-10 text-white">
-      <h1 className="text-3xl font-bold">
-        Home
-      </h1>
-
+      <h1 className="text-3xl font-bold">PreviousPage</h1>
     </section>
   );
 };
 
-export default HomePage;
+export default PreviousPage;
