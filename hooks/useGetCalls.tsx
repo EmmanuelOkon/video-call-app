@@ -48,5 +48,8 @@ export const useGetCalls = () => {
     return startsAt && new Date(startsAt) > now;
   });
 
+  // console.log(Object.keys upcomingCalls?.length);
+  // console.log(`Object ${calls + 1} startsAt:`, Call.state.startsAt);
+
   return { endedCalls, upcomingCalls, callRecordings: calls, isLoading };
 };
