@@ -15,6 +15,7 @@ import { useToast } from "../ui/use-toast";
 
 import { Input } from "../ui/input";
 import { useGetCalls } from "@/hooks/useGetCalls";
+import { URLS } from "@/utils/routes";
 
 const initialValues = {
   dateTime: new Date(),
@@ -135,7 +136,7 @@ const MeetingTypeList = () => {
         description="Meeting Recordings"
         alt="record"
         className="bg-yellow-1"
-        handleClick={() => router.push("/recordings")}
+        handleClick={() => router.push(URLS.RECORDINGS)}
       />
 
       {!callDetail ? (
