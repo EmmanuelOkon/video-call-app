@@ -1,18 +1,13 @@
 "use client";
 
-import { ReactNode } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { ReactNode, useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import Loader from "./Loader";
+import { useGetCalls } from "@/hooks/useGetCalls";
 
 interface MeetingModalProps {
   isOpen: boolean;
@@ -41,6 +36,21 @@ const MeetingModal = ({
   buttonClassName,
   buttonIcon,
 }: MeetingModalProps) => {
+  // const { isLoading } = useGetCalls();
+
+  const [isLoading, setIsLoading] = useState(false);
+  // const [showLinkError, setShowLinkError] = useState(false);
+
+  const handleButtonClick = () => {
+    setIsLoading(true);
+    handleClick && handleClick();
+
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="flex w-full max-w-[520px] flex-col gap-6 border-none bg-dark-1 px-6 py-9 text-white">
@@ -54,11 +64,12 @@ const MeetingModal = ({
             {title}
           </h1>
           {children}
+          {/* {showLinkError && <span>Provide a meeting link</span>} */}
           <Button
             className={
               "bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0"
             }
-            onClick={handleClick}
+            onClick={handleButtonClick}
           >
             {buttonIcon && (
               <Image
@@ -69,7 +80,7 @@ const MeetingModal = ({
               />
             )}{" "}
             &nbsp;
-            {buttonText || "Schedule Meeting"}
+            {isLoading ? "loading..." : buttonText}
           </Button>
         </div>
       </DialogContent>

@@ -12,7 +12,9 @@ import Loader from "./Loader";
 import { Textarea } from "../ui/textarea";
 import DatePicker from "react-datepicker";
 import { useToast } from "../ui/use-toast";
+
 import { Input } from "../ui/input";
+import { useGetCalls } from "@/hooks/useGetCalls";
 
 const initialValues = {
   dateTime: new Date(),
@@ -30,19 +32,44 @@ const MeetingTypeList = () => {
   const client = useStreamVideoClient();
   const { user } = useUser();
   const { toast } = useToast();
+  const { isLoading } = useGetCalls();
+  const [isLoadingIcon, setIsLoadingIcon] = useState(false);
 
   const createMeeting = async () => {
-    if (!client || !user) return;
+    setIsLoadingIcon(true);
+    if (!client || !user) {
+      setIsLoadingIcon(false);
+      return;
+    }
+
     try {
+      // setIsLoadingIcon(true);
       if (!values.dateTime) {
+        // setIsLoadingIcon(false);
         toast({ title: "Please select a date and time" });
         return;
       }
-      const now = new Date();
-      if (values.dateTime < now) {
-        toast({ title: "Selected date and time is in the past" });
-        return;
+
+      if (meetingState === "isJoiningMeeting") {
+        console.log("joining");
+        const emptyLink = values.link.trim().length === 0;
+        if (emptyLink) {
+          setIsLoadingIcon(false);
+          toast({ title: "Provide a meeting link" });
+          return;
+        }
       }
+
+      if (meetingState === "isScheduleMeeting") {
+        console.log("scheduling");
+        const now = new Date();
+        if (values.dateTime < now) {
+          // setIsLoadingIcon(false);
+          toast({ title: "Selected date and time is in the past" });
+          return;
+        }
+      }
+
       const id = crypto.randomUUID();
       const call = client.call("default", id);
       if (!call) throw new Error("Failed to create meeting");
@@ -57,10 +84,12 @@ const MeetingTypeList = () => {
           },
         },
       });
+
       setCallDetail(call);
       if (!values.description) {
         router.push(`/meeting/${call.id}`);
       }
+
       toast({
         title: "Meeting Created",
       });
@@ -115,6 +144,7 @@ const MeetingTypeList = () => {
           onClose={() => setMeetingState(undefined)}
           title="Create Meeting"
           handleClick={createMeeting}
+          buttonText={isLoading ? "loading..." : "Schedule Meeting"}
         >
           <div className="flex flex-col gap-2.5">
             <label className="text-base font-normal leading-[22.4px] text-sky-2">
@@ -179,7 +209,7 @@ const MeetingTypeList = () => {
         onClose={() => setMeetingState(undefined)}
         title="Start an Instant Meeting"
         className="text-center"
-        buttonText="Start Meeting"
+        buttonText={isLoading ? "loading..." : "Start Meeting"}
         handleClick={createMeeting}
       />
     </section>
