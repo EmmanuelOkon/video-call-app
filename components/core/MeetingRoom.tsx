@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import {
   CallControls,
@@ -22,6 +23,7 @@ import {
 import Loader from "./Loader";
 import EndCallButton from "./EndCallButton";
 import { cn } from "@/lib/utils";
+import { URLS } from "@/utils/routes";
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
@@ -52,7 +54,7 @@ const MeetingRoom = () => {
   return (
     <section className="relative h-screen w-full overflow-hidden pt-4 text-white">
       <div className="relative flex size-full items-center justify-center">
-        <div className="flex size-full max-w-[1000px] items-center">
+        <div className=" flex size-full max-w-[1000px] items-center">
           <CallLayout />
         </div>
         <div
@@ -64,8 +66,8 @@ const MeetingRoom = () => {
         </div>
       </div>
       {/* video layout and call controls */}
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
-        <CallControls onLeave={() => router.push(`/`)} />
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
+        <CallControls onLeave={() => router.push(URLS.HOME)} />
 
         <DropdownMenu>
           <div className="flex items-center">

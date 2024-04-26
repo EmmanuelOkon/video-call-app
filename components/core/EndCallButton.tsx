@@ -4,6 +4,7 @@ import { useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { URLS } from "@/utils/routes";
 
 const EndCallButton = () => {
   const call = useCall();
@@ -27,7 +28,7 @@ const EndCallButton = () => {
 
   const endCall = async () => {
     await call.endCall();
-    router.push("/");
+    router.push(URLS.HOME);
   };
 
   return (
