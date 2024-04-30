@@ -8,15 +8,19 @@ export const metadata: Metadata = {
 };
 
 const HomePage = () => {
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const now = new Date();
 
   const time = now.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: userTimeZone,
   });
-  const date = new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
-    now
-  );
+  const date = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+    timeZone: userTimeZone,
+  }).format(now);
 
   
 
