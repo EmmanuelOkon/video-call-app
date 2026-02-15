@@ -1,5 +1,5 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { URLS } from "@/utils/routes";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const protectedRoutes = createRouteMatcher([
   URLS.HOME,
@@ -10,8 +10,11 @@ const protectedRoutes = createRouteMatcher([
   URLS.MEETING,
 ]);
 
-export default clerkMiddleware((auth, req) => {
-  if (protectedRoutes(req)) auth().protect();
+export default clerkMiddleware(async (auth, req) => {
+  if (protectedRoutes(req)) {
+    const { userId, redirectToSignIn } = await auth();
+    if (!userId) return redirectToSignIn();
+  }
 });
 
 export const config = {
