@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
-import { useParams } from "next/navigation";
 import { Loader } from "lucide-react";
+import { useState } from "react";
 
-import { useGetCallById } from "@/hooks/useGetCallById";
 import Alert from "@/components/core/Alert";
+import { useGetCallById } from "@/hooks/useGetCallById";
 
-import MeetingSetup from "@/components/core/MeetingSetup";
 import MeetingRoom from "@/components/core/MeetingRoom";
+import MeetingSetup from "@/components/core/MeetingSetup";
 
 const MeetingPage = ({ params: { id } }: { params: { id: string } }) => {
   // const { id } = useParams();
@@ -22,7 +21,7 @@ const MeetingPage = ({ params: { id } }: { params: { id: string } }) => {
 
   if (!call)
     return (
-      <p className="text-center text-3xl font-bold text-white">
+      <p className="text-center text-3xl font-bold text-foreground">
         Call Not Found
       </p>
     );

@@ -2,7 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  --background: 232 60% 97%;
+  --foreground: 230 32% 14%;
+  --card: 232 50% 96%;
+  --card-foreground: 230 32% 14%;
+  --popover: 232 50% 96%;
+  --popover-foreground: 230 32% 14%;
+  --border: 230 24% 86%;
+  --input: 230 24% 86%;
+  --ring: 252 92% 70%;
+  --primary: 252 91% 64%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 230 44% 92%;
+  --secondary-foreground: 230 32% 20%;
+  --muted: 230 32% 92%;
+  --muted-foreground: 230 18% 45%;
+  --accent: 232 50% 90%;
+  --accent-foreground: 230 32% 18%;
+  --destructive: 0 72% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --dark-1: 230 60% 98%;
+  --dark-2: 230 54% 96%;
+  --dark-3: 230 40% 92%;
+  --dark-4: 230 34% 88%;
+  --slate-1: 230 20% 35%;
+  --slate-2: 230 18% 50%;
+  --slate-3: 230 16% 60%;
+  --glass-1: 230 60% 98%;
+  --glass-2: 230 45% 92%;
+}
 
+.dark {
+  color-scheme: dark;
+  --background: 225 40% 8%;
+  --foreground: 210 40% 96%;
+  --card: 224 34% 15%;
+  --card-foreground: 210 40% 96%;
+  --popover: 224 34% 15%;
+  --popover-foreground: 210 40% 96%;
+  --border: 0 0% 100% / 0.08;
+  --input: 0 0% 100% / 0.12;
+  --ring: 252 92% 70%;
+  --primary: 252 91% 64%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 224 28% 18%;
+  --secondary-foreground: 210 40% 96%;
+  --muted: 225 28% 12%;
+  --muted-foreground: 223 16% 62%;
+  --accent: 228 30% 20%;
+  --accent-foreground: 210 40% 96%;
+  --destructive: 0 72% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --dark-1: 225 32% 11%;
+  --dark-2: 225 38% 8%;
+  --dark-3: 224 34% 15%;
+  --dark-4: 224 30% 20%;
+  --slate-1: 220 18% 75%;
+  --slate-2: 223 16% 65%;
+  --slate-3: 223 12% 55%;
+  --glass-1: 230 40% 12%;
+  --glass-2: 230 34% 16%;
+}
 
 * {
   margin: 0;
@@ -21,22 +83,22 @@
 }
 
 .str-video__participant-details {
-  color: white;
+  color: #e6eef7;
 }
 
 .str-video__menu-container {
-  color: white;
+  color: #e6eef7;
 }
 
 .str-video__notification {
-  color: white;
+  color: #e6eef7;
 }
 
 .str-video__participant-list {
-  background-color: #1c1f2e;
+  background-color: #141a2b;
   padding: 10px;
   border-radius: 10px;
-  color: white;
+  color: #e6eef7;
   height: 100%;
 }
 
@@ -44,22 +106,72 @@
   height: 40px;
 }
 
+.str-video__call-controls {
+  background: rgba(12, 16, 30, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 10px 16px;
+  box-shadow: 0 20px 40px rgba(8, 12, 26, 0.4);
+  backdrop-filter: blur(18px);
+}
+
+.str-video__call-controls button,
+.str-video__call-controls__button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: #e6eef7;
+  transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.str-video__call-controls button:hover,
+.str-video__call-controls__button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(124, 92, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.str-video__call-controls button[aria-pressed="true"],
+.str-video__call-controls__button--active {
+  background: rgba(124, 92, 255, 0.2);
+  border-color: rgba(124, 92, 255, 0.6);
+  box-shadow: 0 10px 24px rgba(92, 79, 255, 0.25);
+}
+
+.str-video__notification {
+  background: rgba(14, 18, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
 .glassmorphism {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: hsl(var(--glass-1) / 0.7);
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 20px 60px hsl(230 50% 8% / 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .glassmorphism2 {
-  background: rgba(18, 17, 17, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: hsl(var(--glass-2) / 0.68);
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 16px 40px hsl(230 50% 8% / 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-panel {
+  background: hsl(var(--card) / 0.75);
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 18px 50px hsl(230 50% 8% / 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 /* ==== clerk class override ===== */
 
 .cl-providerIcon__github {
-  
+
   filter: invert(1);
 }
 
