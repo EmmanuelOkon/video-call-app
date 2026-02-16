@@ -1,13 +1,12 @@
 "use client";
 
-import { ReactNode, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { motion } from "framer-motion";
+import { ReactNode, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
 import Image from "next/image";
-import Loader from "./Loader";
-import { useGetCalls } from "@/hooks/useGetCalls";
+import { Button } from "../ui/button";
 
 interface MeetingModalProps {
   isOpen: boolean;
@@ -53,8 +52,13 @@ const MeetingModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="flex w-full max-w-[520px] flex-col gap-6 border-none bg-dark-1 px-6 py-9 text-white">
-        <div className="flex flex-col gap-6">
+      <DialogContent className="glass-panel flex w-full max-w-[520px] flex-col gap-6 border border-border px-6 py-9 text-foreground">
+        <motion.div
+          className="flex flex-col gap-6"
+          initial={{ opacity: 0, y: 16, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
           {image && (
             <div className="flex justify-center">
               <Image src={image} alt="checked" width={72} height={72} />
@@ -66,9 +70,7 @@ const MeetingModal = ({
           {children}
           {/* {showLinkError && <span>Provide a meeting link</span>} */}
           <Button
-            className={
-              "bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0"
-            }
+            className="bg-violet-1/90 text-white shadow-[0_14px_28px_rgba(92,79,255,0.35)] transition hover:bg-violet-2 focus-visible:ring-1 focus-visible:ring-violet-2"
             onClick={handleButtonClick}
           >
             {buttonIcon && (
@@ -82,7 +84,7 @@ const MeetingModal = ({
             &nbsp;
             {isLoading ? "loading..." : buttonText}
           </Button>
-        </div>
+        </motion.div>
       </DialogContent>
     </Dialog>
   );

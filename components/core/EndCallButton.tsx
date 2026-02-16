@@ -2,9 +2,9 @@
 
 import { useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 
-import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 import { URLS } from "@/utils/routes";
+import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 const EndCallButton = () => {
   const call = useCall();
@@ -32,7 +32,10 @@ const EndCallButton = () => {
   };
 
   return (
-    <Button onClick={endCall} className="bg-red-500">
+    <Button
+      onClick={endCall}
+      className="rounded-full border border-red-500/40 bg-red-500/15 px-4 text-sm font-semibold text-red-200 transition hover:bg-red-500/25"
+    >
       End call for everyone
     </Button>
   );

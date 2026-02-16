@@ -1,8 +1,8 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
-import { cn } from "@/lib/utils";
 
 interface HomeCardProps {
   className?: string;
@@ -24,18 +24,18 @@ const HomeCard = ({
   return (
     <div
       className={cn(
-        "px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[14px] cursor-pointer",
+        "group flex min-h-[240px] w-full flex-col justify-between overflow-hidden rounded-3xl border border-border bg-glass-1 px-5 py-6 text-foreground shadow-[0_18px_50px_rgba(8,12,26,0.35)] transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(92,79,255,0.25)]",
         className
       )}
       onClick={handleClick}
     >
-      <div className="flex-center glassmorphism size-12 rounded-[10px]">
-        <Image src={img} alt={`${alt} icon`} width={27} height={27} />
+      <div className="flex-center h-12 w-12 rounded-2xl border border-white/10 bg-white/10 shadow-[0_12px_24px_rgba(8,12,26,0.35)]">
+        <Image src={img} alt={`${alt} icon`} width={26} height={26} />
       </div>
 
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">{title} </h1>
-        <p className="text-lg font-normal">{description} </p>
+        <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
+        <p className="text-sm font-medium text-slate-1">{description}</p>
       </div>
     </div>
   );

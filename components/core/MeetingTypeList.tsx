@@ -1,26 +1,40 @@
 /* eslint-disable camelcase */
 "use client";
 
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-import HomeCard from "./HomeCard";
-import MeetingModal from "./MeetingModal";
-import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useUser } from "@clerk/nextjs";
-import Loader from "./Loader";
-import { Textarea } from "../ui/textarea";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import DatePicker from "react-datepicker";
+import { Textarea } from "../ui/textarea";
 import { useToast } from "../ui/use-toast";
+import HomeCard from "./HomeCard";
+import Loader from "./Loader";
+import MeetingModal from "./MeetingModal";
 
-import { Input } from "../ui/input";
 import { useGetCalls } from "@/hooks/useGetCalls";
 import { URLS } from "@/utils/routes";
+import { Input } from "../ui/input";
 
 const initialValues = {
   dateTime: new Date(),
   description: "",
   link: "",
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0 },
 };
 
 const MeetingTypeList = () => {
@@ -105,39 +119,52 @@ const MeetingTypeList = () => {
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetail?.id}`;
 
   return (
-    <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-      <HomeCard
-        img="/icons/add-meeting.svg"
-        title="New Meeting"
-        description="Start an instant meeting"
-        alt="add"
-        className="bg-orange-1"
-        handleClick={() => setMeetingState("isInstantMeeting")}
-      />
-      <HomeCard
-        img="/icons/join-meeting.svg"
-        title="Join Meeting"
-        description="via invitation link"
-        alt="add person"
-        className="bg-blue-1"
-        handleClick={() => setMeetingState("isJoiningMeeting")}
-      />
-      <HomeCard
-        img="/icons/schedule.svg"
-        title="Schedule Meeting"
-        description="Plan your meeting"
-        alt="calendar"
-        className="bg-purple-1"
-        handleClick={() => setMeetingState("isScheduleMeeting")}
-      />
-      <HomeCard
-        img="/icons/recordings.svg"
-        title="View Recordings"
-        description="Meeting Recordings"
-        alt="record"
-        className="bg-yellow-1"
-        handleClick={() => router.push(URLS.RECORDINGS)}
-      />
+    <motion.section
+      className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div variants={itemVariants}>
+        <HomeCard
+          img="/icons/add-meeting.svg"
+          title="New Meeting"
+          description="Start an instant meeting"
+          alt="add"
+          className="bg-gradient-to-br from-[#f1f3ff] via-[#e7e9ff] to-white dark:from-violet-3/80 dark:via-violet-1/70 dark:to-[#1c1f3f]"
+          handleClick={() => setMeetingState("isInstantMeeting")}
+        />
+      </motion.div>
+      <motion.div variants={itemVariants}>
+        <HomeCard
+          img="/icons/join-meeting.svg"
+          title="Join Meeting"
+          description="via invitation link"
+          alt="add person"
+          className="bg-gradient-to-br from-[#eef3ff] via-[#e6ecff] to-[#f6f8ff] dark:from-[#243664] dark:via-[#1a2342] dark:to-[#131a33]"
+          handleClick={() => setMeetingState("isJoiningMeeting")}
+        />
+      </motion.div>
+      <motion.div variants={itemVariants}>
+        <HomeCard
+          img="/icons/schedule.svg"
+          title="Schedule Meeting"
+          description="Plan your meeting"
+          alt="calendar"
+          className="bg-gradient-to-br from-[#f2edff] via-[#eae4ff] to-[#f7f5ff] dark:from-[#2b1f58] dark:via-[#241f48] dark:to-[#131a33]"
+          handleClick={() => setMeetingState("isScheduleMeeting")}
+        />
+      </motion.div>
+      <motion.div variants={itemVariants}>
+        <HomeCard
+          img="/icons/recordings.svg"
+          title="View Recordings"
+          description="Meeting Recordings"
+          alt="record"
+          className="bg-gradient-to-br from-[#fff3e6] via-[#fbe9d6] to-[#f8f2ea] dark:from-[#3a2e1e] dark:via-[#242031] dark:to-[#151a30]"
+          handleClick={() => router.push(URLS.RECORDINGS)}
+        />
+      </motion.div>
 
       {!callDetail ? (
         <MeetingModal
@@ -148,18 +175,18 @@ const MeetingTypeList = () => {
           buttonText={isLoading ? "loading..." : "Schedule Meeting"}
         >
           <div className="flex flex-col gap-2.5">
-            <label className="text-base font-normal leading-[22.4px] text-sky-2">
+            <label className="text-sm font-medium leading-[22.4px] text-slate-1">
               Add a description
             </label>
             <Textarea
-              className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="min-h-[110px] border border-border bg-card/80 text-foreground focus-visible:ring-1 focus-visible:ring-violet-2"
               onChange={(e) =>
                 setValues({ ...values, description: e.target.value })
               }
             />
           </div>
           <div className="flex w-full flex-col gap-2.5">
-            <label className="text-base font-normal leading-[22.4px] text-sky-2">
+            <label className="text-sm font-medium leading-[22.4px] text-slate-1">
               Select Date and Time
             </label>
             <DatePicker
@@ -170,7 +197,7 @@ const MeetingTypeList = () => {
               timeIntervals={15}
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm aa"
-              className="w-full rounded bg-dark-3 p-2 focus:outline-none datePicker"
+              className="w-full rounded-lg border border-border bg-card/80 p-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-violet-2"
             />
           </div>
         </MeetingModal>
@@ -201,7 +228,7 @@ const MeetingTypeList = () => {
         <Input
           placeholder="Meeting link"
           onChange={(e) => setValues({ ...values, link: e.target.value })}
-          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="border border-border bg-card/80 text-foreground focus-visible:ring-1 focus-visible:ring-violet-2"
         />
       </MeetingModal>
 
@@ -213,7 +240,7 @@ const MeetingTypeList = () => {
         buttonText={isLoading ? "loading..." : "Start Meeting"}
         handleClick={createMeeting}
       />
-    </section>
+    </motion.section>
   );
 };
 

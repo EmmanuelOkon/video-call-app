@@ -1,14 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
 import {
-  DeviceSettings,
-  VideoPreview,
-  useCall,
-  useCallStateHooks,
+    DeviceSettings,
+    VideoPreview,
+    useCall,
+    useCallStateHooks,
 } from "@stream-io/video-react-sdk";
+import { useEffect, useState } from "react";
 
-import Alert from "./Alert";
 import { Button } from "../ui/button";
+import Alert from "./Alert";
 
 const MeetingSetup = ({
   setIsSetupComplete,
@@ -60,30 +60,43 @@ const MeetingSetup = ({
     );
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 text-white">
-      <h1 className="text-center text-2xl font-bold">Setup</h1>
-      <VideoPreview />
-      <div className="flex h-16 items-center justify-center gap-3">
-        <label className="flex items-center justify-center gap-2 font-medium">
-          <input
-            type="checkbox"
-            checked={isMicCamToggled}
-            onChange={(e) => setIsMicCamToggled(e.target.checked)}
-          />
-          Join with mic and camera off
-        </label>
-        <DeviceSettings />
-      </div>
-      <Button
-        className="rounded-md bg-green-500 px-4 py-2.5"
-        onClick={() => {
-          call.join();
+    <div className="flex min-h-screen w-full items-center justify-center bg-app-light px-6 py-12 text-foreground dark:bg-app">
+      <div className="glass-panel flex w-full max-w-xl flex-col gap-6 rounded-[28px] border border-border px-6 py-8">
+        <div className="flex flex-col gap-2 text-center">
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-2">
+            Ready to join
+          </span>
+          <h1 className="text-3xl font-semibold">Setup your call</h1>
+          <p className="text-sm text-slate-1">
+            Check your camera and microphone before entering.
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-border bg-card/70 p-4">
+          <VideoPreview />
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <label className="flex items-center gap-2 text-sm font-medium text-slate-1">
+            <input
+              type="checkbox"
+              checked={isMicCamToggled}
+              onChange={(e) => setIsMicCamToggled(e.target.checked)}
+              className="h-4 w-4 accent-violet-2"
+            />
+            Join with mic and camera off
+          </label>
+          <DeviceSettings />
+        </div>
+        <Button
+          className="w-full rounded-full bg-violet-1/90 px-4 py-2.5 text-white shadow-[0_14px_28px_rgba(92,79,255,0.35)] transition hover:bg-violet-2"
+          onClick={() => {
+            call.join();
 
-          setIsSetupComplete(true);
-        }}
-      >
-        Join meeting
-      </Button>
+            setIsSetupComplete(true);
+          }}
+        >
+          Join meeting
+        </Button>
+      </div>
     </div>
   );
 };
